@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>WebGl_3D_Viewer</title>
+  <!---DegbugTool-->
+  <script id="dsglinspector" src="http://imiedit.f4.htw-berlin.de:4000/Vorlesung/DS/util/dsglinspector.js"></script>
+  <script type="application/javascript" src="dsliveupdate.js"></script>
+  <script type="application/javascript" src="WebGl/helperGL.js"></script>
+
+
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="dropdown">
+            <button class="dropbtn">File
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Open File</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">About
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Version Info</a>
+                <a href="#">Git</a>
+                <a href="#">Impress</a>
+            </div>
+        </div>
+        <p class="site-name">WebGl_3D_Viewer</p>
+    </div> 
+
+  <div class="container">
+    <div class="split left">
+        <div class="centered">
+            <canvas id="viewport"></canvas>
+        </div> 
+    </div> 
+        <div class="split right">
+            <div class="centered">
+                <div class="slider">
+                    <p>X-Translation:</p>  
+                    <input type="range" min="-100" max="100" value="0" class="slider" id="transX_slider">
+                    <p>Y-Translation:</p>  
+                    <input type="range" min="-100" max="100" value="0" class="slider" id="transY_slider">
+                    <p>Rotation Z:</p>  
+                    <input type="range" min="0" max="360" value="0" class="slider" id="rotationZ_slider">
+                    <p>Rotation X:</p>  
+                    <input type="range" min="0" max="360" value="0" class="slider" id="rotationX_slider">
+                    <p>Scale:</p>  
+                    <input type="range" min="2" max="40" value="20" class="slider" id="scale_slider">
+
+                    <p>Brightness:</p>  
+                    <input type="range" min="0" max="10" value="1" class="slider" id="brightness_slider">
+                </div>
+         </div>
+    </div>
+  </div>  
+      
+  <script id="vertex_s" type="notjs">
+    attribute vec4 a_col;
+    attribute vec4 a_position;
+
+    uniform float u_xTrans;
+    uniform float u_yTrans;
+    uniform float u_zAngle;
+    uniform float u_xAngle;
+    uniform float u_scale;
+
+    varying vec4 v_col;
+
+    void main() {
+        mat4 rotationMatrixZ;
+        rotationMatrixZ[0] = vec4(cos(u_zAngle),0,-sin(u_zAngle),0);
+        rotationMatrixZ[1] = vec4(0, 1,0, 0);
+        rotationMatrixZ[2] = vec4(sin(u_zAngle),0,cos(u_zAngle),0);
+        rotationMatrixZ[3] = vec4(0,0,0,1);
+
+        mat4 rotationMatrixX;
+        rotationMatrixX[0] = vec4(1,0,0,0);
+        rotationMatrixX[1] = vec4(0, cos(u_xAngle),-sin(u_xAngle), 0);
+        rotationMatrixX[2] = vec4(0,sin(u_xAngle),cos(u_xAngle),0);
+        rotationMatrixX[3] = vec4(0,0,0,1);
+
+        mat4 scaleMatrix;
+        scaleMatrix[0] = vec4(u_scale, 0, 0, 0);
+        scaleMatrix[1] = vec4(0, u_scale, 0, 0);
+        scaleMatrix[2] = vec4(0, 0, u_scale, 0);
+        scaleMatrix[3] = vec4(0, 0, 0, 1);
+
+        gl_Position = rotationMatrixZ * rotationMatrixX * scaleMatrix *  (a_position + vec4(u_xTrans, u_yTrans, 0, 1));
+        v_col = 3.0 * a_col;
+        gl_PointSize = 1.0;
+    }
+  </script>
+  <script id="fragment_s" type="notjs">
+    precision mediump float;
+    varying vec4 v_col;
+
+    uniform float u_bright;
+    
+    void main() {
+           gl_FragColor = u_bright * v_col;
+    }
+  </script>
+
+  <script type="application/javascript" src="WebGl/mainGl.js"></script>
+</body>
+
+</html>
