@@ -3,8 +3,7 @@
 
 <head>
   <title>WebGl_3D_Viewer</title>
-  <!---DegbugTool-->
-  <script id="dsglinspector" src="http://imiedit.f4.htw-berlin.de:4000/Vorlesung/DS/util/dsglinspector.js"></script>
+  
   <script type="application/javascript" src="dsliveupdate.js"></script>
   <script type="application/javascript" src="WebGl/helperGL.js"></script>
   <script type="application/javascript" src="JS/additionalJS.js"></script>
@@ -22,7 +21,21 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
-                <button onclick="versionInfo()">Open File</button>
+                <div class="navbarSelect">
+                    <label for="myfile">Open File:</label>
+                    <input type="file" id="myfile" name="myfile"> 
+                </div>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Options
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <div class="navbarSelect">
+                    <label for="devTools">Devolper Tools:</label> 
+                    <input type="checkbox" id="devTools" onclick="disbaleDeveloperTools()", name="devTools">
+                </div>
             </div>
         </div>
         <div class="dropdown">
@@ -115,7 +128,17 @@
     }
   </script>
 
+  <!---DegbugTool-->
+  <script id="dsglinspector" src="http://imiedit.f4.htw-berlin.de:4000/Vorlesung/DS/util/dsglinspector.js"></script>
+  
+
+  <!---Main Script fpr WebGl-->
   <script type="application/javascript" src="WebGl/mainGl.js"></script>
+
+    <!---Disable DegbugTool by Default-->
+  <script id="disableDevToolsByDefault">
+    document.getElementById("box").className = "invisiblePanel";
+</script>
 </body>
 
 </html>
