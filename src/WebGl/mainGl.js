@@ -1,6 +1,6 @@
-
 //This programm is based on a lecture and exericeses done at the HTW-Berlin IMI Studies in the Computer Graphics course in the wintersemster 2021/22.
 var gl, program, canvas, bufferSize;
+
 var transX_slider = document.getElementById("transX_slider");
 var transY_slider = document.getElementById("transY_slider");
 var rotationZ_slider = document.getElementById("rotationZ_slider");
@@ -12,9 +12,12 @@ init();
 
 
 async function init() {
+    var width = 600;
+    var height = 600;
+
     canvas = document.getElementById('viewport');
-    canvas.width = 500;
-    canvas.height = 500;
+    canvas.width = width;
+    canvas.height = height;
     gl = document.getElementById('viewport').getContext('webgl');
 
     let vertexShaderSource = document.getElementById("vertex_s").innerText;
@@ -39,7 +42,6 @@ async function init() {
     var vertexIndexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertexIndexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(index), gl.STATIC_DRAW);
-
 
     window.requestAnimationFrame(render);
 }
@@ -68,7 +70,7 @@ function render(time) {
 
     var brightness = brightness_slider.value /10;
     var brightnessOffsetLocation = gl.getUniformLocation(program, "u_bright");
-    gl.uniform1f(brightnessOffsetLocation, scale); 
+    gl.uniform1f(brightnessOffsetLocation, brightness); 
 
     gl.clearColor(0,0,0,1)
     gl.clear(gl.COLOR_BUFFER_BIT);
