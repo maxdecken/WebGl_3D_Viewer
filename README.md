@@ -1,4 +1,4 @@
-# WebGl_3D_Viwer
+# WebGl_3D_Viewer
 
 A probgram to viewer specific 3D files with WebGl, FileUpload is under development.
 You can move, rotate and scale the object with the provided sliders.
