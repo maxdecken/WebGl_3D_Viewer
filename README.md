@@ -1,6 +1,6 @@
 # WebGl 3D Viewer
 
-A probgram to viewer specific 3D files with WebGl, FileUpload is under development.
+This is a simple program to view a specific 3D files with WebGl.
 You can move, rotate and scale the object with the provided sliders.
 
 Screenshot the current Version:
